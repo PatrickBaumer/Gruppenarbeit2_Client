@@ -27,8 +27,11 @@ public class Main {
     
     public static void main(String[] args) throws IOException, DatatypeConfigurationException {
         Main main = new Main();
-       // main.runMainMenu();
-        
+        main.runMainMenu();
+        System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
+        System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
+        System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true"); 
     }
     
    public Main(){
@@ -124,7 +127,7 @@ public class Main {
     
     }
     
-     public void FahrzeugAnlegen() throws IOException, DatatypeConfigurationException {
+     public void fahrzeugAnlegen() throws IOException, DatatypeConfigurationException {
         System.out.println("================");
         System.out.println("Fahrzeug anlegen");
         System.out.println("================");
@@ -151,8 +154,12 @@ public class Main {
     
     }
      
-     public void FahrzeugAusleihen() throws IOException, DatatypeConfigurationException {
+     public void fahrzeugAusleihen() throws IOException, DatatypeConfigurationException {
      
+         
+     }
+     
+     public void leihvertraegeAuflisten() throws IOException, DatatypeConfigurationException{
          
      }
 }
