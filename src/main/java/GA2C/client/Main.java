@@ -13,6 +13,7 @@ import ga2.soap.Leihvertrag;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -25,36 +26,27 @@ import javax.xml.ws.Holder;
  */
 public class Main {
 
-    private final FahrzeugverleihSoapWebservice ws;
-    private final BufferedReader fkey;
-    
-    
-        /**
+    public static Fahrzeugverleih fahrzeugverleih = new Fahrzeugverleih();
+    public static FahrzeugverleihSoapWebservice ws = fahrzeugverleih.getFahrzeugverleihSoapWebservicePort();
+    public static BufferedReader fkey = new BufferedReader(new InputStreamReader(System.in));
+    public static String hilf;
+
+    /**
      * @param args Kommandozeilenparameter
      * @throws java.io.IOException
      * @throws javax.xml.datatype.DatatypeConfigurationException
      */
-
     public static void main(String[] args) throws IOException, DatatypeConfigurationException {
-        Main main = new Main();
-        main.runMainMenu();
-
-    }
-
-    public Main() {
-        Fahrzeugverleih fahrzeugverleih = new Fahrzeugverleih();
-        this.ws = fahrzeugverleih.getFahrzeugverleihSoapWebservicePort();
-        this.fkey = new BufferedReader(new InputStreamReader(System.in));
-    }
-    
-    
-
-    public void runMainMenu() throws IOException, DatatypeConfigurationException {
-        
         System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
         System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
         System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
         System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
+        runMainMenu();
+    }
+
+    public static void runMainMenu() throws IOException, DatatypeConfigurationException {
+
+
         System.out.println("Bester Fahrzeugverleih!");
         System.out.println("░░█▀░░░░░░░░░░░▀▀███████░░░░░");
         System.out.println("░░█▌░░░░░░░░░░░░░░░▀██████░░░");
@@ -104,59 +96,145 @@ public class Main {
             System.out.println();
 
             System.out.print("Deine Auswahl: ");
-            String command = this.fkey.readLine();
+
+            try {
+                hilf = fkey.readLine();
+            } catch (IOException ex) {
+                System.out.println("Sorry, ich habe dich nicht verstanden.");
+                runMainMenu();
+            }
             System.out.println();
 
-            switch (command.toUpperCase()) {
+            switch (hilf.toUpperCase()) {
                 case "K": //Kunde anlegen
-                    this.kundeAnlegen();
+                    kundeAnlegen();
                     break;
                 case "F": //Fahrzeug anlegen
-                    this.fahrzeugAnlegen();
+                    fahrzeugAnlegen();
                     break;
                 case "A": //Fahrzeug ausleihen
-                    this.fahrzeugAusleihen();
+                    fahrzeugAusleihen();
                     break;
                 case "L": //Leihverträge auflsiten
-                    this.leihvertraegeAuflisten();
+                    leihvertraegeAuflisten();
                     break;
                 case "E": //quitten
                     quit = true;
                     break;
                 default:
-                    System.out.println("Sorry, ich habe dich nicht verstanden …");
+                    System.out.println("Sorry, ich habe dich nicht verstanden.");
                     System.out.println();
             }
 
         }
     }
 
-    public void kundeAnlegen() throws IOException, DatatypeConfigurationException {
+    public static void kundeAnlegen() throws IOException, DatatypeConfigurationException {
         System.out.println("================");
         System.out.println("Kunde anlegen");
         System.out.println("================");
         System.out.println();
 
-        System.out.print("Vorname:");
-        String vorname = this.fkey.readLine();
+        String vorname = "";
+        String nachname = "";
+        String straße = "";
+        String hausnummer = "";
+        String plz = "";
+        String ort = "";
+        String land = "";
 
-        System.out.print("Nachname:");
-        String nachname = this.fkey.readLine();
+        while (vorname.equals("")) {
+            System.out.print("Vorname:");
+            try {
+                vorname = fkey.readLine();
+                if (vorname.equals("")) {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
 
-        System.out.print("Straße:");
-        String straße = this.fkey.readLine();
+                System.out.println("Vorname darf nicht leer sein.");
+            }
+        }
+        while (nachname.equals("")) {
+            System.out.print("Nachname:");
+            try {
+                nachname = fkey.readLine();
+                if (nachname.equals("")) {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
 
-        System.out.print("Hausnummer:");
-        String hausnummer = this.fkey.readLine();
+                System.out.println("Nachname darf nicht leer sein.");
+            }
+        }
 
-        System.out.print("Postleitzahl:");
-        String plz = this.fkey.readLine();
+        while (straße.equals("")) {
+            System.out.print("Straße:");
+            try {
+                straße = fkey.readLine();
+                if (straße.equals("")) {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
 
-        System.out.print("Ort:");
-        String ort = this.fkey.readLine();
+                System.out.println("Straße darf nicht leer sein.");
+            }
+        }
 
-        System.out.print("Land:");
-        String land = this.fkey.readLine();
+        while (hausnummer.equals("")) {
+            System.out.print("Hausnummer:");
+            try {
+                hausnummer = fkey.readLine();
+                if (hausnummer.equals("")) {
+                    throw new Exception();
+                }
+                Integer.parseInt(hausnummer);
+            } catch (Exception ex) {
+                System.out.println("Hausnummer darf nicht leer und muss eine Zahl sein.");
+                hausnummer = "";
+            }
+        }
+
+        while (plz.equals("")) {
+            System.out.print("Postleitzahl:");
+            try {
+                plz = fkey.readLine();
+                if (plz.equals("")) {
+                    throw new Exception();
+                }
+                Integer.parseInt(plz);
+            } catch (Exception ex) {
+
+                System.out.println("Postleitzahl darf nicht leer und muss eine Zahl sein.");
+                plz = "";
+            }
+        }
+
+        while (ort.equals("")) {
+            System.out.print("Ort:");
+            try {
+                ort = fkey.readLine();
+                if (ort.equals("")) {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+
+                System.out.println("Ort darf nicht leer sein.");
+            }
+        }
+
+        while (land.equals("")) {
+            System.out.print("Land:");
+            try {
+                land = fkey.readLine();
+                if (land.equals("")) {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+
+                System.out.println("Land darf nicht leer sein.");
+            }
+        }
 
         Kunde kunde = new Kunde();
         kunde.setVorname(vorname);
@@ -169,25 +247,59 @@ public class Main {
 
         Holder<Kunde> hKunde = new Holder<>(kunde);
         ws.createNewKunde(hKunde);
-        
-        System.out.println("Kunde mit der ID" + hKunde.value.getId() + "wurde angelegt.");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Kunde mit der ID: " + hKunde.value.getId() + " wurde angelegt.");
 
     }
 
-    public void fahrzeugAnlegen() throws IOException, DatatypeConfigurationException {
+    public static void fahrzeugAnlegen() throws IOException, DatatypeConfigurationException {
         System.out.println("================");
         System.out.println("Fahrzeug anlegen");
         System.out.println("================");
         System.out.println();
 
-        System.out.print("Hersteller:");
-        String hersteller = this.fkey.readLine();
+        String hersteller = "";
+        String baujahr = "";
+        String modell = "";
 
-        System.out.print("Modell:");
-        String modell = this.fkey.readLine();
+        while (hersteller.equals("")) {
+            System.out.print("Hersteller:");
+            try {
+                hersteller = fkey.readLine();
+                if (hersteller.equals("")) {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+                System.out.println("Hersteller darf nicht leer sein.");
+            }
+        }
 
-        System.out.print("Baujahr:");
-        String baujahr = this.fkey.readLine();
+        while (modell.equals("")) {
+            System.out.print("Modell:");
+            try {
+                modell = fkey.readLine();
+                if (modell.equals("")) {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+                System.out.println("Modell darf nicht leer sein.");
+            }
+        }
+
+        while (baujahr.equals("")) {
+            System.out.print("Baujahr:");
+            try {
+                baujahr = fkey.readLine();
+                if (baujahr.equals("")) {
+                    throw new Exception();
+                }
+                Integer.parseInt(baujahr);
+            } catch (Exception ex) {
+                System.out.println("Baujahr darf nicht leer sein und muss eine Zahl sein.");
+                baujahr = "";
+            }
+        }
 
         Fahrzeug fahrzeug = new Fahrzeug();
         fahrzeug.setHersteller(hersteller);
@@ -196,56 +308,153 @@ public class Main {
 
         Holder<Fahrzeug> hFahrzeug = new Holder<>(fahrzeug);
         ws.createNewFahrzeug(hFahrzeug);
-        
-        System.out.println("Fahrzeug mit der ID" + hFahrzeug.value.getId() + "wurde angelegt.");
+
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Fahrzeug mit der ID: " + hFahrzeug.value.getId() + " wurde angelegt.");
 
     }
 
-    public void fahrzeugAusleihen() throws IOException, DatatypeConfigurationException {
+    public static void fahrzeugAusleihen() throws IOException, DatatypeConfigurationException {
         System.out.println("================");
         System.out.println("Fahrzeug ausleihen");
         System.out.println("================");
         System.out.println();
-        
+
         System.out.println("Folgende Fahzeuge stehen zur Verfügung:");
-        
+
         List<Fahrzeug> alleFahrzeuge = ws.findAllFahrzeuge();
-        
-        for (Fahrzeug fahrzeug: alleFahrzeuge) {
+
+        if (alleFahrzeuge.isEmpty()) {
+            System.out.println("Es stehen keine Fahrzeuge zur Verfügung.");
+            runMainMenu();
+        }
+
+        for (Fahrzeug fahrzeug : alleFahrzeuge) {
             System.out.print(fahrzeug.getHersteller());
             System.out.print(" " + fahrzeug.getModell() + ", Baujahr");
-            System.out.print(" " + fahrzeug.getBaujahr() + ", ID");
+            System.out.print(" " + fahrzeug.getBaujahr() + ", ID:");
             System.out.print(" " + fahrzeug.getId());
-            System.out.println();   
+            System.out.println();
+        }
+
+        long kundeId = 0;
+        long fahrzeugId = 0;
+        String loanStartStr = "";
+        String loanEndeStr = "";
+        XMLGregorianCalendar loanStartGC = null;
+        XMLGregorianCalendar loanEndeGC = null;
+
+        while (kundeId == 0) {
+            for (int i = 0; i < 3; i++) {
+                System.out.print("Kundennummer:");
+                try {
+                    kundeId = Long.parseLong(fkey.readLine());
+                    if (ws.findKundeById(kundeId) == null) {
+                        throw new Exception();
+                    }
+                    else i=5;
+                    
+                } catch (Exception ex) {
+                    System.out.println("Kundennummer falsch!");
+                    if (i==2) {
+                        runMainMenu();
+                    }
+                }
+            }
+            
+        }
+
+        //3 Versuche für die Eingabe
+        while (fahrzeugId == 0) {
+            for (int i = 0; i < 3; i++) {
+                System.out.print("Fahrzeug-ID:");
+                try {
+                    fahrzeugId = Long.parseLong(fkey.readLine());
+                    if (ws.findFahrzeugById(fahrzeugId) == null) {
+                        throw new Exception();
+                    }
+                    else i=5;
+                } catch (Exception ex) {
+                    System.out.println("Fahrzeug-ID falsch!");
+                    fahrzeugId = 0;
+                    if (i==2) {
+                        runMainMenu();
+                    }
+                }
+            }
+        }
+
+        while (loanStartStr.equals("")) {
+            System.out.print("Abholung am (yyyy-mm-dd):");
+            try {
+                loanStartStr = fkey.readLine();
+                loanStartGC = DatatypeFactory.newInstance().newXMLGregorianCalendar(loanStartStr + "T00:00:00+01:00");
+            } catch (Exception ex) {
+                System.out.println("Datum bitte in der Form: yyyy-mm-dd");
+                loanStartStr = "";
+            }
+        }
+
+        while (loanEndeStr.equals("")) {
+            System.out.print("Rückgabe am (yyyy-mm-dd):");
+            try {
+                loanEndeStr = fkey.readLine();
+                loanEndeGC = DatatypeFactory.newInstance().newXMLGregorianCalendar(loanEndeStr + "T00:00:00+01:00");
+            } catch (Exception ex) {
+                System.out.println("Datum bitte in der Form: yyyy-mm-dd");
+                loanEndeStr = "";
+            }
         }
         
-        System.out.print("Kundennummer:");
-        Long kundeId = Long.parseLong(this.fkey.readLine());
         Kunde kunde = ws.findKundeById(kundeId);
-        
-        System.out.print("Fahrzeug-ID:");
-        Long fahrzeugId = Long.parseLong(this.fkey.readLine());
         Fahrzeug fahrzeug = ws.findFahrzeugById(fahrzeugId);
+        Leihvertrag leih;
         
-        
-        
-        
-        System.out.print("Abholung am (yyyy-mm-dd):");
-        String loanStartStr = this.fkey.readLine();
-        DatatypeFactory dtf = DatatypeFactory.newInstance();
-        XMLGregorianCalendar loanStart = dtf.newXMLGregorianCalendar(loanStartStr);
-        
-        System.out.print("Rückgabe am (yyyy-mm-dd):");
-        String loanEndeStr = this.fkey.readLine();
-        DatatypeFactory dtf2 = DatatypeFactory.newInstance();
-        XMLGregorianCalendar loanEnde = dtf2.newXMLGregorianCalendar(loanEndeStr);
-        
-        Holder<Leihvertrag> hLeih = new Holder<> (ws.createNewLeihvertrag(loanStart, loanEnde, fahrzeug, kunde));
-        
-        System.out.println("Alles klar! Leihvertrag mit der ID " + hLeih.value.getId() + " wurde angelegt.");
-    }
 
-    public void leihvertraegeAuflisten() throws IOException, DatatypeConfigurationException {
+        try {
+        leih = ws.createNewLeihvertrag(loanStartGC, loanEndeGC, fahrzeug, kunde);
+        System.out.println("Leihvertrag mit der ID" + leih.getId() + "wurde angelegt.");
+        } catch (Exception e) {
+            System.out.println("Entschuldigen Sie. Das Fahrzeug ist schon ausgeliehen.");
+            runMainMenu();
+        }
+    }
+    
+
+    public static void leihvertraegeAuflisten() throws IOException, DatatypeConfigurationException {
+        long kundenId = 0;
+        
+        System.out.println("======================");
+        System.out.println("Leihverträge auflisten");
+        System.out.println("======================");
+        System.out.println();
+        
+        while (kundenId == 0) {
+            System.out.println("Bitte geben Sie ihre Kundennummer ein:");
+            
+            try {
+                kundenId = Long.parseLong(fkey.readLine());
+                if (ws.findKundeById(kundenId) == null) {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+                System.out.println("Keine bekannte Kundennummer.");
+            }
+        }
+        
+        Kunde kunde = ws.findKundeById(kundenId);
+        List<Leihvertrag> listeLeih = ws.findLeihvertragByKunde(kunde);
+        SimpleDateFormat sDF = new SimpleDateFormat("dd.MM.yyyy");
+        
+        for (Leihvertrag hilf : listeLeih) {
+            System.out.println();
+            System.out.println("ID: " + hilf.getId());
+            System.out.println("Fahrzeug:" + hilf.getFahrzeugId().getHersteller() + " " + hilf.getFahrzeugId().getModell() + ", " + hilf.getFahrzeugId().getBaujahr());
+            System.out.println("Beginn der Leihe " + sDF.format(hilf.getBeginnDatum().toGregorianCalendar().getTime()));
+            System.out.println("Ende der Leihe " + sDF.format(hilf.getEndeDatum().toGregorianCalendar().getTime()));
+            System.out.println();
+        }
 
     }
 }
