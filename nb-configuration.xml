@@ -14,6 +14,5 @@ That way multiple projects can share the same settings (useful for formatting ru
 Any value defined here will override the pom.xml file value but is only applicable to the current project.
 -->
         <org-netbeans-modules-maven-jaxws._5f_C_5f_Fahrzeugverleih>http://localhost:8080/Gruppenarbeit2_Server/Fahrzeugverleih?wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_Fahrzeugverleih>
-        <org-netbeans-modules-maven-jaxws._5f_C_5f_CarsharingSoapWebservice>http://localhost:8080/Carsharing/CarsharingSoapWebservice?wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_CarsharingSoapWebservice>
     </properties>
 </project-shared-configuration>

@@ -407,6 +407,7 @@ public class Main {
             }
         }
         
+        System.out.println("");
         Kunde kunde = ws.findKundeById(kundeId);
         Fahrzeug fahrzeug = ws.findFahrzeugById(fahrzeugId);
         Leihvertrag leih;
@@ -414,7 +415,7 @@ public class Main {
 
         try {
         leih = ws.createNewLeihvertrag(loanStartGC, loanEndeGC, fahrzeug, kunde);
-        System.out.println("Leihvertrag mit der ID" + leih.getId() + "wurde angelegt.");
+        System.out.println("Leihvertrag mit der ID " + leih.getId() + " wurde angelegt.");
         } catch (Exception e) {
             System.out.println("Entschuldigen Sie. Das Fahrzeug ist schon ausgeliehen.");
             runMainMenu();
