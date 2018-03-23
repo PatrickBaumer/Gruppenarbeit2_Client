@@ -48,37 +48,7 @@ public class Main {
 
 
         System.out.println("Bester Fahrzeugverleih!");
-        System.out.println("░░█▀░░░░░░░░░░░▀▀███████░░░░░");
-        System.out.println("░░█▌░░░░░░░░░░░░░░░▀██████░░░");
-        System.out.println("░█▌░░░░░░░░░░░░░░░░███████▌░░");
-        System.out.println("░█░░░░░░░░░░░░░░░░░████████░░");
-        System.out.println("▐▌░░░░░░░░░░░░░░░░░▀██████▌░░");
-        System.out.println("░▌▄███▌░░░░▀████▄░░░░▀████▌░░");
-        System.out.println("▐▀▀▄█▄░▌░░░▄██▄▄▄▀░░░░████▄▄░");
-        System.out.println("▐░▀░░═▐░░░░░░══░░▀░░░░▐▀░▄▀▌▌");
-        System.out.println("▐░░░░░▌░░░░░░░░░░░░░░░▀░▀░░▌▌");
-        System.out.println("▐░░░▄▀░░░▀░▌░░░░░░░░░░░░▌█░▌▌");
-        System.out.println("░▌░░▀▀▄▄▀▀▄▌▌░░░░░░░░░░▐░▀▐▐░");
-        System.out.println("░▌░░▌░▄▄▄▄░░░▌░░░░░░░░▐░░▀▐░░");
-        System.out.println("░█░▐▄██████▄░▐░░░░░░░░█▀▄▄▀░░");
-        System.out.println("░▐░▌▌░░░░░░▀▀▄▐░░░░░░█▌░░░░░░");
-        System.out.println("░░█░░▄▀▀▀▀▄░▄═╝▄░░░▄▀░▌░░░░░░");
-        System.out.println("░░░▌▐░░░░░░▌░▀▀░░▄▀░░▐░░░░░░░");
-        System.out.println("░░░▀▄░░░░░░░░░▄▀▀░░░░█░░░░░░░");
-        System.out.println("░░░▄█▄▄▄▄▄▄▄▀▀░░░░░░░▌▌░░░░░░");
-        System.out.println("░░▄▀▌▀▌░░░░░░░░░░░░░▄▀▀▄░░░░░");
-        System.out.println("▄▀░░▌░▀▄░░░░░░░░░░▄▀░░▌░▀▄░░░");
-        System.out.println("░░░░▌█▄▄▀▄░░░░░░▄▀░░░░▌░░░▌▄▄");
-        System.out.println("░░░▄▐██████▄▄░▄▀░░▄▄▄▄▌░░░░▄░");
-        System.out.println("░░▄▌████████▄▄▄███████▌░░░░░▄");
-        System.out.println("░▄▀░██████████████████▌▀▄░░░░");
-        System.out.println("▀░░░█████▀▀░░░▀███████░░░▀▄░░");
-        System.out.println("░░░░▐█▀░░░▐░░░░░▀████▌░░░░▀▄░");
-        System.out.println("░░░░░░▌░░░▐░░░░▐░░▀▀█░░░░░░░▀");
-        System.out.println("░░░░░░▐░░░░▌░░░▐░░░░░▌░░░░░░░");
-        System.out.println("░╔╗║░╔═╗░═╦═░░░░░╔╗░░╔═╗░╦═╗░");
-        System.out.println("░║║║░║░║░░║░░░░░░╠╩╗░╠═╣░║░║░");
-        System.out.println("░║╚╝░╚═╝░░║░░░░░░╚═╝░║░║░╩═╝░");
+
 
         boolean quit = false;
 
@@ -417,7 +387,7 @@ public class Main {
         leih = ws.createNewLeihvertrag(loanStartGC, loanEndeGC, fahrzeug, kunde);
         System.out.println("Leihvertrag mit der ID " + leih.getId() + " wurde angelegt.");
         } catch (Exception e) {
-            System.out.println("Entschuldigen Sie. Das Fahrzeug ist schon ausgeliehen.");
+            System.out.println("Entschuldigen Sie. Das Fahrzeug ist bereits ausgeliehen oder Ihre Angaben waren fehlerhaft.");
             runMainMenu();
         }
     }
